@@ -1,36 +1,78 @@
-import {LOGIN, LOGIN_SUCCESS, LOGIN_ERROR} from "../actions";
+import {
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  FETCH_DATA_START,
+  FETCH_DATA_SUCCESS,
+  FETCH_DATA_FAILURE,
+  ADD_FRIEND_START,
+  ADD_FRIEND_SUCCESS,
+  ADD_FRIEND_FAILURE
+} from '../actions';
+
 const initialState = {
+  error: '',
+  fetchingData: false,
+  loggingIn: false,
   friends: [],
-  fetching: false,
-  error: null
-  // Array characters, Boolean fetching, null error.
+  addFriends: []
 };
-export const reducer = (state = initialState, action) => {
-  
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    // Fill me in with the important reducers
-    // action types should be FETCHING, SUCCESS and FAILURE
-    // your switch statement should handle all of these cases.
-    
-      case LOGIN:
-        return {
-          ...state,
-          fetching: true,
-        }
-      case LOGIN_SUCCESS:
-        return {
-          ...state,
-          fetching: false,
-          friends: action.payload
-        }
-      case LOGIN_ERROR:
-        return {
-          ...state,
-          fetching: false,
-          error: `${action.payload}`
-        }
-    
+    case LOGIN_START:
+      return {
+        ...state,
+        error: '',
+        loggingIn: true
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        loggingIn: false,
+        error: ''
+      };
+    case FETCH_DATA_START:
+      return {
+        ...state,
+        error: '',
+        fetchingData: true
+      };
+    case FETCH_DATA_SUCCESS:
+      return {
+        ...state,
+        fetchingData: false,
+        friends: action.payload
+          
+      };
+    case FETCH_DATA_FAILURE:
+      return {
+        ...state,
+        fetchingData: false,
+        error: action.payload
+      };
+    case ADD_FRIEND_START:
+      return {
+        ...state,
+        fetchingData: true,
+        error: ''
+      }
+    case ADD_FRIEND_SUCCESS:
+      return {
+        ...state,
+        fetchingData: false,
+        friends: action.payload,
+        addFriends: action.payload
+      }
+    case ADD_FRIEND_FAILURE:
+      return {
+        ...state,
+        fetchingData: false,
+        error: action.payload
+      }
     default:
       return state;
   }
 };
+
+export default reducer;

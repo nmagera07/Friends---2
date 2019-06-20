@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getData } from '../actions'
+import { getData, addFriends } from '../actions'
 import  FriendMap  from './FriendMap'
 
 class FriendsList extends React.Component {
@@ -31,14 +31,13 @@ class FriendsList extends React.Component {
 
     addFriend = e => {
         e.preventDefault()
-        this.props.addFriend(this.state.friends)
+        this.props.addFriends(this.state.friends)
         this.setState({
             friends: {
                 name: '',
                 age: '',
                 email: ''
             },
-            // redirect: true
         })
     }
 
@@ -53,7 +52,7 @@ class FriendsList extends React.Component {
                     <h2>Enter a new friend!</h2>
                     <input 
                         type="text"
-                        value={this.state.name}
+                        value={this.state.friends.name}
                         name="name"
                         onChange={this.handleChanges}
                         placeholder="Name"
@@ -61,14 +60,14 @@ class FriendsList extends React.Component {
                     />
                     <input 
                         type="text"
-                        value={this.state.age}
+                        value={this.state.friends.age}
                         name="age"
                         onChange={this.handleChanges}
                         placeholder="Age"
                     />
                     <input 
                         type="text"
-                        value={this.state.email}
+                        value={this.state.friends.email}
                         name="email"
                         onChange={this.handleChanges}
                         placeholder="Email"
@@ -81,17 +80,18 @@ class FriendsList extends React.Component {
         }
     }
 }
- 
+
 const mapStateToProps = state => ({
   error: state.error,
-  fetching: state.fetching,
-  friends: state.friends
+  fetchingData: state.fetchingData,
+  friends: state.friends,
+  addFriends: state.addFriends
 })
 
 
 export default connect(
   mapStateToProps,
   {
-    getData
+    getData, addFriends,
   }
 )(FriendsList);
