@@ -1,18 +1,18 @@
 import axios from 'axios'
 
-export const FETCH_DATA_START = 'FETCH_DATA_START'
-export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS'
-export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR'
+export const LOGIN = 'LOGIN'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_ERROR = 'LOGIN_ERROR'
 
 export const getData = () => dispatch => {
-    dispatch({ type: FETCH_DATA_START })
+    dispatch({ type: LOGIN })
     axios
-        .get(`/api/friends`)
+        .get(`http://localhost:5000/api/friends`)
         .then(res => {
             console.log("action", res)
-            dispatch({ type: FETCH_DATA_SUCCESS, payload: res.data})
+            dispatch({ type: LOGIN_SUCCESS, payload: res.data})
             
         })
          
-        .catch(err => dispatch({ type: FETCH_DATA_ERROR, payload: err}))
+        .catch(err => dispatch({ type: LOGIN_ERROR, payload: err}))
 }

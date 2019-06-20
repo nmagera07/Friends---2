@@ -1,4 +1,4 @@
-import {FETCH_DATA_START, FETCH_DATA_SUCCESS, FETCH_DATA_ERROR} from "../actions";
+import {LOGIN, LOGIN_SUCCESS, LOGIN_ERROR} from "../actions";
 const initialState = {
   friends: [],
   fetching: false,
@@ -12,22 +12,22 @@ export const reducer = (state = initialState, action) => {
     // action types should be FETCHING, SUCCESS and FAILURE
     // your switch statement should handle all of these cases.
     
-      case FETCH_DATA_START:
+      case LOGIN:
         return {
           ...state,
           fetching: true,
         }
-      case FETCH_DATA_SUCCESS:
+      case LOGIN_SUCCESS:
         return {
           ...state,
           fetching: false,
-          friends: [...state.characters, ...action.payload]
+          friends: action.payload
         }
-      case FETCH_DATA_ERROR:
+      case LOGIN_ERROR:
         return {
           ...state,
           fetching: false,
-          error: 'Sorry, something went wrong!'
+          error: `${action.payload}`
         }
     
     default:

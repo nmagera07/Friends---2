@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
+import LoginPage from './components/LoginPage'
+import FriendsList from './components/FriendsList'
 
 function App() {
   return (
     <div className="App">
-      <p>sup</p>
+      <FriendsList />
+      {/* <LoginPage /> */}
     </div>
   );
 }
